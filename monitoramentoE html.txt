@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hidroponia - Monitoramento</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Estilos CSS para o conteúdo */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        .title {
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .sensor {
+            background-color: #f1f3f5;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Monitoramento Hidropônico</h1>
+        <div id="sensor-data">
+            <div class="sensor">
+                <p>pH: <span id="ph-value">--</span></p>
+                <p>Condutividade: <span id="condutividade-value">--</span></p>
+                <p>Temperatura: <span id="temperatura-value">--</span></p>
+            </div>
+        </div>
+        <button id="download-data">Baixar Dados</button>
+    </div>
+    <script>
+        // Função para atualizar os valores dos sensores
+        function atualizarValoresSensores(enderecoESP32) {
+            // Simulando valores de sensores (substitua esta parte com sua lógica real)
+            const sensorData = {
+                ph: 6.5,
+                condutividade: 1000,
+                temperatura: 25
+            };
+
+            // Atualizar os valores dos sensores na página
+            document.getElementById('ph-value').textContent = sensorData.ph;
+            document.getElementById('condutividade-value').textContent = sensorData.condutividade;
+            document.getElementById('temperatura-value').textContent = sensorData.temperatura;
+
+            // Evento de clique do botão de download
+            document.getElementById('download-data').addEventListener('click', function() {
+                const jsonData = JSON.stringify(sensorData);
+                const blob = new Blob([jsonData], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'dados_sensores.json';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            });
+        }
+
+        // Chamada da função para atualizar os valores dos sensores com o endereço do ESP32
+        const enderecoESP32 = 'ws://endereco-do-seu-esp32:porta';
+        atualizarValoresSensores(enderecoESP32);
+    </script>
+<!-- Os comandos Git abaixo devem ser executados no terminal/prompt de comando -->
+
+    <!-- 1. Navegue até a pasta onde estão os arquivos do seu site -->
+    <!-- 2. Execute: git init -->
+    <!-- 3. Execute: git add . -->
+    <!-- 4. Execute: git commit -m "Primeiro commit" -->
+    <!-- 5. Substitua https://github.com/lairtastefany/hydro-Monitor.github.io.git -->
+    <!-- 6. Execute: git remote add origin https://github.com/lairtastefany/hydro-Monitor.github.io.git -->
+    <!-- 7. Execute: git push -u origin master -->
+</body>
+</html>
